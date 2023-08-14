@@ -1,0 +1,108 @@
+
+.price_text{
+    font-size: 0.8vw;
+    color:white;
+    margin:0;
+}
+
+.high_price{
+    font-size: 0.8vw;
+    margin:0;
+    border-bottom: 1px solid grey;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin:0 10%;
+}
+
+.header_name{
+    font-size: 1.1vw;
+    position: relative;
+}
+.header_name h1{
+    margin-bottom:10%;
+}
+
+.header_name::after{
+    position: absolute;
+    content: ".";
+    bottom:0;
+    left:0;
+    margin:auto;
+    width:0;
+    right:0;
+    color: transparent;
+    background: rgb(103, 103, 247);
+    height: 1px;
+    transition: all ease-in-out 0.2s;
+}
+
+.header_name:hover::after{
+    width:100%;
+}
+
+
+.home_header_price, .home_header_name, .home_header_change{
+    font-size: 1.3vw;
+    text-align: start;
+    padding-left: 5%;
+}
+table{
+    margin: 0 10%;
+    width:80%;
+    border-collapse: collapse;
+}
+
+.powered_by{
+    display: flex;
+    flex-direction: row;
+    color: grey;
+    font-size: 1vw;
+    align-items: center;
+    opacity: 0.5;
+}
+.powered_by img{
+    margin:auto 0;
+    width:6vw;
+}
+
+
+
+footer{
+    border-top: 1px solid black;
+    padding:2% 0;
+    margin-top: 3%;
+    text-align: center;
+    font-size: .5vw;
+}
+
+
+.my_link{
+    font-family: 'Reenie Beanie', cursive;
+    position: relative;
+    font-size: 2vw;
+}
+
+ .my_link:link,.my_link:visited{
+    color:black
+}
+.my_link::after{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '.';
+    color: transparent;
+    background: black;
+    height: 1px;
+    transition: all ease-in-out 0.2s;
+}
+.my_link:hover::after{
+    width: 100%;
+}

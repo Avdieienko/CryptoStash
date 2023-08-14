@@ -1,0 +1,50 @@
+tr{
+    border-bottom: 1px solid rgb(103, 103, 247);
+}
+.symbol_row:hover{
+    background-color: rgba(103, 103, 247, 0.151);
+    transition: all 0.1s ease-in-out;
+}
+
+.symbol_price, .symbol_price_change, .symbol_name{
+    font-size:1.5vw;
+}
+.short{
+    color:grey;
+}
+
+.symbol_logo{
+    width:3vw;
+    height: auto;
+}
+
+a{
+    text-decoration: none;
+}
+a:link{
+    color:black
+}
+
+
+a:visited{
+    color:black
+}
+
+.trade_view_button{
+    font-size:1.5vw;
+    color:white;
+    padding:3%;
+    background-color: rgb(103, 103, 247);
+    width:max-content;
+    transition: all 0.2s ease-in-out;
+}
+.trade_view_button:link{
+    color: white;
+}
+.trade_view_button:visited{
+    color: white;
+}
+
+.trade_view_button:hover{
+    background-color: rgba(0, 0, 0, 0.63);
+}

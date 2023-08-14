@@ -1,0 +1,192 @@
+.trading_view_grid{
+    display: grid;
+    grid-template-columns: 25% auto 15%;
+    grid-template-rows: 10% auto;
+}
+
+.graph{
+    position: relative;
+    width:100%;
+    height: 70vh;
+    background-color: black;
+    z-index: 0;
+    grid-area: 2/2/-1/3;
+}
+#data{
+    width:max-content;
+    padding: 1% 2%;
+    /* background-color: rgba(255, 255, 255, 0.856); */
+    color: white;
+    border-radius: 10px;
+}
+
+.data_text{
+    font-size: 1vw;
+}
+.sidebar{
+    grid-area: 1/1/-1/2;
+    padding: 0 5%;
+}
+
+
+.sidebar_data{
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar_data_row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10%;
+    border-bottom: 1px solid rgb(103, 103, 247);
+}
+
+.sidebar_data_row:hover{
+    background-color: rgba(103, 103, 247, 0.151);
+    transition: all 0.1s ease-in-out;
+}
+
+.sidebar_header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width:70%;
+}
+
+.sidebar_logo{
+    width:3vw;
+    height: auto;
+    transition: all 1s ease-in-out;
+}
+.sidebar_logo:hover{
+    transform: rotate(360deg);
+    transition: all 1s ease-in-out;
+}
+
+.sidebar_name{
+    font-size: 2vw;
+}
+.sidebar_symbol{
+    font-size: 1.3vw;
+    color: grey;
+}
+.sidebar_price{
+    border-bottom: 1px solid rgb(103, 103, 247);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.right_sidebar{
+    grid-area: 1/3/-1/-1;
+    padding: 0 5%;
+    overflow-y: auto;
+    height:80vh;
+}
+
+.right_sidebar_row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:80%;
+    padding: 0 5%;
+    background-color: white;
+    border-bottom:solid 1px rgb(103, 103, 247);
+    font-size: 1vw;
+}
+
+.right_sidebar_row:hover{
+    background-color: rgba(103, 103, 247, 0.151);
+    transition: all 0.1s ease-in-out;
+}
+
+.right_sidebar_row img{
+    width:2vw
+}
+
+.interval_header{
+    margin-left:auto ;
+    grid-area: 1/2/2/3;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.interval_buttons{
+    display: flex;
+    flex-direction: row;
+    width:10vw
+}
+
+.interval_button{
+    padding: 1% 10%;
+    border: 1px solid rgb(103, 103, 247);
+    transition: all 0.2s ease-in-out;
+}
+.interval_button:hover{
+    background-color: rgb(103, 103, 247);
+    border-color:white;
+    color: white;
+}
+
+.interval_data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1vw;
+    transition: all ease-in-out 0.2s;
+    position: relative;
+}
+
+.interval_data::after{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '.';
+    color: transparent;
+    background: rgb(103, 103, 247);
+    height: 1px;
+    transition: all ease-in-out 0.2s;
+}
+
+.interval_data:hover::after{
+    width:100%;
+}
+
+.interval_header p{
+    margin: 0;
+}
+.internal_number{
+    text-align: end;
+    width:100%
+}
+
+
+
+/* width */
+.right_sidebar::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .right_sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  .right_sidebar::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  .right_sidebar::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

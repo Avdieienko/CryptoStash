@@ -1,0 +1,29 @@
+.input_wrapper{
+    display: flex;
+    flex-direction: row ;
+    width:13vw;
+    border-bottom: solid black 1px;
+    align-items: center;
+}
+#search_input{
+    width:100%;
+    padding-left:5%;
+    font-size: 1.2vw;
+    background-color: transparent;
+    border:none;
+    font-family: 'Inter', sans-serif;
+    opacity: 50%;
+}
+
+#search_input:focus{
+    outline: none;
+}
+
+@media (orientation:portrait){
+    .input_wrapper{
+        width:30vw;
+    }
+    #search_input{
+        font-size: 3vw;
+    }
+}
