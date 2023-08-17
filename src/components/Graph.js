@@ -1,7 +1,7 @@
 import { deleteTrailZeros } from "../api";
 import { Link } from "react-router-dom";
 
-export const Graph = ({data, interval, symbol})=>{
+export const Graph = ({data, interval, symbol, lastPrice})=>{
     const lows = []
     const highs = []
     const lastOpen = data[data.length-1][1]
@@ -9,6 +9,7 @@ export const Graph = ({data, interval, symbol})=>{
     let adder = 0
     const color = (lastOpen-lastClose)<0?"green":"red";
     const changePercent = deleteTrailZeros((lastClose/lastOpen*100-100).toFixed(2))
+    lastPrice = deleteTrailZeros(lastPrice.toFixed(7))
 
     // max and min price in a graph
     data.forEach(item => {
@@ -32,8 +33,11 @@ export const Graph = ({data, interval, symbol})=>{
     const gap = (max-min)/10
     const dif = max/gap
     for(let i = min;i<=max+gap;i=i+gap){
-        if(i.toFixed(5)>max){
+        if(deleteTrailZeros(i.toFixed(7))>deleteTrailZeros(max.toFixed(7))){
             break
+        }
+        if(lastPrice>i && lastPrice<i+gap){
+            graphPrices.push(lastPrice)
         }
         graphPrices.push(deleteTrailZeros(i.toFixed(7)))
     }
@@ -115,7 +119,7 @@ export const Graph = ({data, interval, symbol})=>{
                         let color = "#0ecb81"
                         let top = openPrice*100+adder
                         let ultimateTop = lowPrice*100+adder
-                        const left = 2.2*index+1
+                        const left = 2.1*index+1
                         if(klineHeight<0){
                             klineHeight = klineHeight*-1
                             top = closePrice*100+adder
@@ -143,12 +147,11 @@ export const Graph = ({data, interval, symbol})=>{
                                 {
                                     interval == "1d" && index%3 ===0?
                                     <>
-                                        <div style={{position:"absolute",
+                                        <div className="graph_data" style={{position:"absolute",
                                         width:"1.8%",
                                         left:`${left}%`,
                                         color:"white",
-                                        bottom:"0%",
-                                        fontSize:"0.8vw"
+                                        bottom:"0%"
                                         }}>
                                             <p>{Day}/{Month}</p>
                                         </div>
@@ -163,12 +166,11 @@ export const Graph = ({data, interval, symbol})=>{
                                     </>
                                     :interval == "1w" && index%3 ===0?
                                     <>
-                                        <div style={{position:"absolute",
+                                        <div className="graph_data" style={{position:"absolute",
                                         width:"1.8%",
                                         left:`${left}%`,
                                         color:"white",
-                                        bottom:"0%",
-                                        fontSize:"0.8vw"
+                                        bottom:"0%"
                                         }}>
                                             <p>{Day}/{Month}</p>
                                         </div>
@@ -183,12 +185,11 @@ export const Graph = ({data, interval, symbol})=>{
                                     </>
                                     :interval == "1h" && index%3 ===0?
                                     <>
-                                        <div style={{position:"absolute",
+                                        <div className="graph_data" style={{position:"absolute",
                                         width:"1.8%",
                                         left:`${left}%`,
                                         color:"white",
-                                        bottom:"0%",
-                                        fontSize:"0.8vw"
+                                        bottom:"0%"
                                         }}>
                                             <p>{Hours}:00</p>
                                         </div>
@@ -208,8 +209,8 @@ export const Graph = ({data, interval, symbol})=>{
                                     <div style={{
                                         position:"absolute",
                                         color:"grey",
-                                        width:"5%",
-                                        left:`${left>4.1?left-4.1:left}%`,
+                                        width:"8%",
+                                        left:`${left>8?left-7:left}%`,
                                         bottom:`${ultimateHeight+ultimateTop}%`
                                     }}>
                                         <p className="high_price">{max}</p>
@@ -221,8 +222,8 @@ export const Graph = ({data, interval, symbol})=>{
                                     <div style={{
                                         position:"absolute",
                                         color:"grey",
-                                        width:"5%",
-                                        left:`${left>4.1?left-4.1:left}%`,
+                                        width:"8%",
+                                        left:`${left>8?left-7:left}%`,
                                         bottom:`${ultimateTop}%`
                                     }}>
                                         <p className="high_price">{min}</p>
@@ -237,10 +238,10 @@ export const Graph = ({data, interval, symbol})=>{
             {graphPrices.map((price, index)=>{
                 return(
                     <>
-                        <div key={index} style={{
+                        <div className="price_text_wrapper" key={index} style={{
                             bottom:`${normalise(price,min,max)*100+adder}%`,
-                            position:"absolute",
-                            left:"94%"
+                            backgroundColor:`${price===lastPrice?color:""}`,
+                            zIndex:`${price===lastPrice?"99":"98"}`
                         }}>
                             <p className="price_text">{price}</p>
                         </div>
@@ -272,19 +273,19 @@ export const Graph = ({data, interval, symbol})=>{
                     <Link style={interval==="1h"?{backgroundColor:"rgb(103, 103, 247)", color:"white"}:{}} className="interval_button" to={`/${symbol}?interval=1h`}><p>1h</p></Link>
                </div>
                 <div className="interval_data">
-                    <p >Interval change: </p>
+                    <p className="interval_category">Interval change: </p>
                     <p style={{color:color}} className="internal_number">{changePercent} %</p>
                 </div>
                 <div className="interval_data">
-                    <p >Graph low: </p>
+                    <p className="interval_category">Graph low: </p>
                     <p style={{color:color}} className="internal_number">{min} $</p>
                 </div>
                 <div className="interval_data">
-                    <p>Graph high: </p>
+                    <p className="interval_category">Graph high: </p>
                     <p style={{color:color}} className="internal_number">{max} $</p>
                 </div>
                 <div className="interval_data">
-                    <p >Graph average: </p>
+                    <p className="interval_category">Graph average: </p>
                     <p className="internal_number">{avg} $</p>
                 </div>
         </div>
