@@ -28,3 +28,17 @@
     width:2vw;
     height:auto
 }
+
+@media (orientation:portrait) {
+    .results_list{
+        top:4%;
+        width:100vw;
+        left:0
+    }
+    .result_div{
+        font-size: 3vw;
+    }
+    .result_div img{
+        width:6vw
+    }
+}

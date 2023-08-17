@@ -5,8 +5,7 @@ import "../styles/searchbar.css"
 
 
 
-export const SearchBar = ({setResult}) =>{
-    const [input,setInput] = useState("")
+export const SearchBar = ({setResult, input, setInput}) =>{
 
 
     const handleChange = (value) =>{

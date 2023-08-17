@@ -106,3 +106,24 @@ footer{
 .my_link:hover::after{
     width: 100%;
 }
+
+@media (orientation:portrait) {
+    header{
+        margin:0 5%;
+    }
+    .header_name{
+        font-size: 2vw;
+    }
+    .powered_by{
+        font-size: 1.5vw;
+    }
+    .powered_by img{
+        width:8vw
+    }
+    footer{
+        font-size: 1.5vw;
+    }
+    .my_link{
+        font-size: 6vw;
+    }
+}

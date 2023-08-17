@@ -15,7 +15,6 @@
 #data{
     width:max-content;
     padding: 1% 2%;
-    /* background-color: rgba(255, 255, 255, 0.856); */
     color: white;
     border-radius: 10px;
 }
@@ -189,4 +188,129 @@
   /* Handle on hover */
   .right_sidebar::-webkit-scrollbar-thumb:hover {
     background: #555; 
+  }
+
+  .price_text_wrapper{
+    position: absolute;
+    left:93%;
+  }
+
+  .interval_category,.sidebar_data_row_category{
+    font-weight: bold;
+  }
+
+  .graph_data{
+    font-size: 0.8vw;
+  }
+
+  @media (orientation:portrait) {
+    .trading_view_grid{
+        grid-template-columns: 100%;
+        grid-template-rows: 20% auto 10%;
+        height:100vh;
+    }
+    .sidebar{
+        grid-area: 1/1/2/-1;
+        padding: 0 2%;
+    }
+    .sidebar_data{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-template-rows: auto auto;
+        column-gap: 1%;
+    }
+    .sidebar_data_row{
+        flex-direction: column;
+        padding: 0;
+        justify-content:start;
+    }
+    .data_price, .symbol_price_change{
+        font-size: 3.5vw;
+        margin-bottom: 0;
+        margin-top: 5%;
+    }
+    .graph{
+        grid-area: 2/1/3/-1;
+    }
+
+
+    .right_sidebar{
+        display: none;
+    }
+    .sidebar_price{
+        font-size: 2.5vw;
+        border:none
+    }
+    .sidebar_main_data{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid rgb(103, 103, 247);
+    }
+    .sidebar_header{
+        width:50%
+    }
+    .sidebar_logo{
+        width:8vw
+    }
+    .sidebar_name{
+        font-size: 6vw;
+    }
+    .sidebar_symbol{
+        font-size: 4vw;
+    }
+
+
+    .sidebar_data_row_category{
+        font-size: 3vw;
+        margin-bottom: 0%;
+    }
+    .row1{
+        grid-area: 1/1/2/2;
+    }
+    .row2{
+        grid-area: 1/2/2/3;
+    }
+    .row3{
+        grid-area: 2/2/-1/3;
+    }
+    .row6{
+        grid-area: 1/3/2/4;
+    }
+    .row7{
+        grid-area: 2/3/-1/4;
+    }
+    .price_text{
+        font-size: 2vw;
+    }
+    .price_text_wrapper{
+        left:90%;
+    }
+    .high_price{
+        font-size: 2vw;
+    }
+
+    .interval_header{
+        grid-area: 3/1/-1/-1;
+        display: grid;
+        grid-template-columns: auto auto 40vw;
+        grid-template-rows: auto auto;
+    }
+    .interval_buttons{
+        width:40vw;
+        grid-area: 1/3/-1/-1;
+    }
+    .interval_category{
+        font-size: 3vw;
+    }
+    .internal_number{
+        font-size: 3.5vw;
+    }
+    .graph_data{
+        font-size: 1.8vw;
+    }
+    .data_text{
+        font-size: 3vw;
+    }
+
   }

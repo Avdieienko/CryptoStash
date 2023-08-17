@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { GetSymbolData } from "../api";
 import { Loader } from "./Loader";
 import {Footer} from "./Footer"
+import { useOrientation } from "react-use";
 
 
 export const Visualiser = () =>{
@@ -16,6 +17,7 @@ export const Visualiser = () =>{
     const [searchParams, setSearchParams] = useSearchParams()
     const interval = searchParams.get("interval")
     const {klineData,symbolData, loading, error} = GetSymbolData(routeParams.symbol,interval)
+    const {type} = useOrientation()
 
     if(loading) return <Loader/>
 
@@ -31,8 +33,8 @@ export const Visualiser = () =>{
     lowPrice = deleteTrailZeros(symbolData.lowPrice)
     openPrice = deleteTrailZeros(symbolData.openPrice)
     closePrice = deleteTrailZeros(symbolData.prevClosePrice)
-    volume = deleteTrailZeros(symbolData.volume).toFixed(2)
-    quoteVolume = deleteTrailZeros(symbolData.quoteVolume).toFixed(2)
+    volume = deleteTrailZeros(deleteTrailZeros(symbolData.volume).toFixed(2))
+    quoteVolume = deleteTrailZeros(deleteTrailZeros(symbolData.quoteVolume).toFixed(2))
     const color = priceChangePercent>0?"green":"red"
 
     if(Math.abs(priceChange)<0.000001){
@@ -54,49 +56,55 @@ export const Visualiser = () =>{
         <Header/>
         <div className="trading_view_grid">
             <div className="sidebar">
-                <div className="sidebar_header">
-                    <img className="sidebar_logo" src={logo} alt={name}/>
-                    <h1 className="sidebar_name">{name}</h1>
-                    <h1 className="sidebar_symbol">{symbol}</h1>
-                </div>
-                <div style={{color:priceChangePercent>0?"green":"red"}} className="sidebar_price">
-                    <h1>{lastPrice} $</h1>
-                    <p className="symbol_price_change_percent">{priceChangePercent>0?<RiArrowUpSFill/>:<RiArrowDownSFill/>}{priceChangePercent} %</p>
+                <div className="sidebar_main_data">
+                    <div className="sidebar_header">
+                        <img className="sidebar_logo" src={logo} alt={name}/>
+                        <h1 className="sidebar_name">{name}</h1>
+                        <h1 className="sidebar_symbol">{symbol}</h1>
+                    </div>
+                    <div style={{color:priceChangePercent>0?"green":"red"}} className="sidebar_price">
+                        <h1>{lastPrice} $</h1>
+                        <p className="symbol_price_change_percent">{priceChangePercent>0?<RiArrowUpSFill/>:<RiArrowDownSFill/>}{priceChangePercent} %</p>
+                    </div>
                 </div>
                 <div className="sidebar_data">
-                    <div className="sidebar_data_row">
-                        <p>24h Change: </p>
+                    <div className="sidebar_data_row row1">
+                        <p className="sidebar_data_row_category">24h Change: </p>
                         <p style={{color:color}} className="symbol_price_change">
                             {priceChange} $
                         </p>
                     </div>
-                    <div className="sidebar_data_row">
-                        <p>24h High: </p>
+                    <div className="sidebar_data_row row2">
+                        <p className="sidebar_data_row_category">24h High: </p>
                         <p className="data_price">{highPrice} $</p>
                     </div>
-                    <div className="sidebar_data_row">
-                        <p>24h Low: </p>
-                        <p>{lowPrice} $</p>
+                    <div className="sidebar_data_row row3">
+                        <p className="sidebar_data_row_category">24h Low: </p>
+                        <p className="data_price">{lowPrice} $</p>
                     </div>
-                    <div className="sidebar_data_row">
-                        <p>Open price: </p>
-                        <p>{openPrice} $</p>
+                    {type==="landscape-primary"?
+                    <>
+                        <div className="sidebar_data_row row4">
+                            <p className="sidebar_data_row_category">Open price: </p>
+                            <p className="data_price">{openPrice} $</p>
+                        </div>
+                        <div className="sidebar_data_row row5">
+                            <p className="sidebar_data_row_category">Close price: </p>
+                            <p className="data_price">{closePrice} $</p>
+                        </div>
+                    </>
+                    :""}
+                    <div className="sidebar_data_row row6">
+                        <p className="sidebar_data_row_category">24h Volume({symbol}): </p>
+                        <p className="data_price">{volume}</p>
                     </div>
-                    <div className="sidebar_data_row">
-                        <p>Close price: </p>
-                        <p>{closePrice} $</p>
-                    </div>
-                    <div className="sidebar_data_row">
-                        <p>24h Volume({symbol}): </p>
-                        <p>{volume}</p>
-                    </div>
-                    <div className="sidebar_data_row">
-                        <p>24h Volume(USD): </p>
-                        <p>{quoteVolume} $</p>
+                    <div className="sidebar_data_row row7">
+                        <p className="sidebar_data_row_category">24h Volume(USD): </p>
+                        <p className="data_price">{quoteVolume} $</p>
                     </div>
                 </div>
             </div>
-            <Graph data={klineData} interval={interval} symbol={routeParams.symbol}/>
+            <Graph data={klineData} interval={interval} symbol={routeParams.symbol} lastPrice={lastPrice}/>
             <div className="right_sidebar">
                 {currencies.map((symbol, id)=>{
                     return(
