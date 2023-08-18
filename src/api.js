@@ -159,7 +159,16 @@ export const GetSymbolData = (symbol,interval) =>{
   const [symbolData, setSymbolData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  console.log(interval)
+  if(interval === null){
+    interval = "1d"
+    console.log(interval)
+  }
   useEffect(()=>{
+    if(!["1h","1w","1d"].includes(interval)){
+      setError("Invalid interval")
+      return
+    }
     fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`).then(
       res => res.json()
     ).then(data=>{
@@ -174,7 +183,7 @@ export const GetSymbolData = (symbol,interval) =>{
       setLoading(false)
     })
     .catch(error=>{
-      setError(error)
+      setError(error.message)
     })
   },[symbol,interval])
 
