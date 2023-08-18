@@ -11,7 +11,7 @@ export const SearchResults = ({results, setResult, setInput}) => {
         <div className="results_list">
             {results.map((result,id)=>{
                 return(
-                    <Link onClick={handleChange} className="result_div" to={`/${result.symbol}USDT?interval=1d`} key={id}>
+                    <Link onClick={handleChange} className="result_div" to={`/cryptostash/${result.symbol}USDT?interval=1d`} key={id}>
                         <img alt={result.symbol} src={result.logo} />
                         <p>{result.name}</p>
                         <p>{result.symbol}</p>
