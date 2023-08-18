@@ -38,8 +38,10 @@ export const Graph = ({data, interval, symbol, lastPrice})=>{
         }
         if(lastPrice>i && lastPrice<i+gap){
             graphPrices.push(lastPrice)
+            i=i+gap
+        }else{
+            graphPrices.push(deleteTrailZeros(i.toFixed(7)))
         }
-        graphPrices.push(deleteTrailZeros(i.toFixed(7)))
     }
 
     const normalise = (number, min, max) =>{
@@ -116,18 +118,18 @@ export const Graph = ({data, interval, symbol, lastPrice})=>{
                         const closePrice = normalise(kline[4],min,max)
                         let klineHeight = (closePrice - openPrice)*100
                         let ultimateHeight = (highPrice - lowPrice)*100
-                        let color = "#0ecb81"
+                        let colorKline = "#0ecb81"
                         let top = openPrice*100+adder
                         let ultimateTop = lowPrice*100+adder
                         const left = 2.1*index+1
                         if(klineHeight<0){
                             klineHeight = klineHeight*-1
                             top = closePrice*100+adder
-                            color = "#f6465d"
+                            colorKline = "#f6465d"
                         }
                         return(
                             <>
-                                <div onMouseOver={()=>{showData(top,left,kline[1],kline[2],kline[3],kline[4],interval === "1h"?`${Hours}:00`:`${Day}/${Month}`)}} onMouseLeave={closeData} style={{backgroundColor:color,
+                                <div onMouseOver={()=>{showData(top,left,kline[1],kline[2],kline[3],kline[4],interval === "1h"?`${Hours}:00`:`${Day}/${Month}`)}} onMouseLeave={closeData} style={{backgroundColor:colorKline,
                                 width:"1.8%",
                                 left:`${left}%`,
                                 height:`${klineHeight}%`,
@@ -135,17 +137,17 @@ export const Graph = ({data, interval, symbol, lastPrice})=>{
                                 bottom:`${top}%`
                                 }}>
                                 </div>
-                                <div style={{backgroundColor:color,
+                                <div style={{backgroundColor:colorKline,
                                     width:"1px",
                                     position:"absolute",
                                     height:`${ultimateHeight}%`,
-                                    left:`${left+0.9}%`,
+                                    left:`${left+0.89}%`,
                                     bottom:`${ultimateTop}%`,
                                     zIndex:"-1"
                                     }}>
                                 </div>
                                 {
-                                    interval == "1d" && index%3 ===0?
+                                    (interval == "1d"||interval == "1w") && (index-1)%4 ===0?
                                     <>
                                         <div className="graph_data" style={{position:"absolute",
                                         width:"1.8%",
@@ -159,31 +161,13 @@ export const Graph = ({data, interval, symbol, lastPrice})=>{
                                         width:".1%",
                                         height:"100%",
                                         left:`${left+0.9}%`,
-                                        backgroundColor:"rgb(43, 43, 43)",
+                                        backgroundColor:index === data.length-1?color:"rgb(43, 43, 43)",
+                                        opacity:index === data.length-1?"0.4":"1",
                                         bottom:"0",
                                         zIndex:"-2"
                                         }}></div>
                                     </>
-                                    :interval == "1w" && index%3 ===0?
-                                    <>
-                                        <div className="graph_data" style={{position:"absolute",
-                                        width:"1.8%",
-                                        left:`${left}%`,
-                                        color:"white",
-                                        bottom:"0%"
-                                        }}>
-                                            <p>{Day}/{Month}</p>
-                                        </div>
-                                        <div style={{position:"absolute",
-                                        width:".1%",
-                                        height:"100%",
-                                        left:`${left+0.9}%`,
-                                        backgroundColor:"rgb(43, 43, 43)",
-                                        bottom:"0",
-                                        zIndex:"-2"
-                                        }}></div>
-                                    </>
-                                    :interval == "1h" && index%3 ===0?
+                                    :interval == "1h" && (index-1)%4 ===0?
                                     <>
                                         <div className="graph_data" style={{position:"absolute",
                                         width:"1.8%",
@@ -197,7 +181,27 @@ export const Graph = ({data, interval, symbol, lastPrice})=>{
                                         width:".1%",
                                         height:"100%",
                                         left:`${left+0.9}%`,
-                                        backgroundColor:"rgb(43, 43, 43)",
+                                        backgroundColor:index === data.length-1?color:"rgb(43, 43, 43)",
+                                        opacity:index === data.length-1?"0.4":"1",
+                                        bottom:"0",
+                                        zIndex:"-2",
+                                        }}></div>
+                                    </>
+                                    :index === data.length-1?
+                                    <>
+                                        <div className="graph_data" style={{position:"absolute",
+                                        width:"1.8%",
+                                        left:`${left}%`,
+                                        color:"white",
+                                        bottom:"0%"
+                                        }}>
+                                            <p>{interval==="1d" || interval==="1w"?`${Day}/${Month}`:`${Hours}:00`}</p>
+                                        </div>
+                                        <div style={{position:"absolute",
+                                        width:".1%",
+                                        height:"100%",
+                                        left:`${left+0.9}%`,
+                                        backgroundColor:color,
                                         bottom:"0",
                                         zIndex:"-2"
                                         }}></div>
@@ -241,7 +245,8 @@ export const Graph = ({data, interval, symbol, lastPrice})=>{
                         <div className="price_text_wrapper" key={index} style={{
                             bottom:`${normalise(price,min,max)*100+adder}%`,
                             backgroundColor:`${price===lastPrice?color:""}`,
-                            zIndex:`${price===lastPrice?"99":"98"}`
+                            zIndex:`${price===lastPrice?"99":"98"}`,
+                            padding:price === lastPrice?"0.3%":"0"
                         }}>
                             <p className="price_text">{price}</p>
                         </div>
@@ -250,8 +255,9 @@ export const Graph = ({data, interval, symbol, lastPrice})=>{
                             position:"absolute",
                             width:"100%",
                             height:".1%",
-                            backgroundColor:"rgb(43, 43, 43)",
-                            zIndex:"-2"
+                            backgroundColor:(price === lastPrice?color:"rgb(43, 43, 43)"),
+                            opacity:price === lastPrice?"0.4":"1",
+                            zIndex:"-3"
                         }}>
                         </div>
                     </>
@@ -268,9 +274,9 @@ export const Graph = ({data, interval, symbol, lastPrice})=>{
         </div>
         <div className="interval_header">
                <div className="interval_buttons">
-                    <Link style={interval==="1w"?{backgroundColor:"rgb(103, 103, 247)", color:"white"}:{}} className="interval_button" to={`/${symbol}?interval=1w`}><p>1w</p></Link>
-                    <Link style={interval==="1d"?{backgroundColor:"rgb(103, 103, 247)", color:"white"}:{}} className="interval_button" to={`/${symbol}?interval=1d`}><p>1d</p></Link>
-                    <Link style={interval==="1h"?{backgroundColor:"rgb(103, 103, 247)", color:"white"}:{}} className="interval_button" to={`/${symbol}?interval=1h`}><p>1h</p></Link>
+                    <Link style={interval==="1w"?{backgroundColor:"rgb(103, 103, 247)", color:"white"}:{}} className="interval_button" to={`/cryptostash/${symbol}?interval=1w`}><p>1w</p></Link>
+                    <Link style={interval==="1d"?{backgroundColor:"rgb(103, 103, 247)", color:"white"}:{}} className="interval_button" to={`/cryptostash/${symbol}?interval=1d`}><p>1d</p></Link>
+                    <Link style={interval==="1h"?{backgroundColor:"rgb(103, 103, 247)", color:"white"}:{}} className="interval_button" to={`/cryptostash/${symbol}?interval=1h`}><p>1h</p></Link>
                </div>
                 <div className="interval_data">
                     <p className="interval_category">Interval change: </p>
