@@ -48,3 +48,24 @@ a:visited{
 .trade_view_button:hover{
     background-color: rgba(0, 0, 0, 0.63);
 }
+@media (orientation:portrait) {
+    .symbol_logo{
+        width:8vw
+    }
+    .symbol_name{
+        font-size: 3.5vw;
+    }
+    .short{
+        font-size: 3vw;
+    }
+    .symbol_price{
+        font-size: 3vw;
+    }
+    .symbol_price_change{
+        font-size: 2.5vw;
+    }
+    .trade_view_button{
+        font-size: 3vw;
+        padding: 5%;
+    }
+}
