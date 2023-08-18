@@ -123,6 +123,7 @@
 }
 
 .interval_button{
+    font-size: 1vw;
     padding: 1% 10%;
     border: 1px solid rgb(103, 103, 247);
     transition: all 0.2s ease-in-out;
@@ -201,6 +202,10 @@
 
   .graph_data{
     font-size: 0.8vw;
+    background-color: black;
+  }
+  .graph_data p{
+    margin-top: 0;
   }
 
   @media (orientation:portrait) {
@@ -224,7 +229,7 @@
         padding: 0;
         justify-content:start;
     }
-    .data_price, .symbol_price_change{
+    .data_price, .sidebar_symbol_price_change{
         font-size: 3.5vw;
         margin-bottom: 0;
         margin-top: 5%;
@@ -288,6 +293,7 @@
     }
     .high_price{
         font-size: 2vw;
+        background-color: black;
     }
 
     .interval_header{
@@ -299,6 +305,10 @@
     .interval_buttons{
         width:40vw;
         grid-area: 1/3/-1/-1;
+        align-self: self-start;
+    }
+    .interval_button{
+        font-size: 4vw;
     }
     .interval_category{
         font-size: 3vw;
