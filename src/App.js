@@ -38,12 +38,12 @@ function App() {
       <Header/>
       <table className='home'>
         <colgroup>
-          <col style={{width:"8%"}}/>
-          <col style={{width:"20%"}}/>
+          <col className="col_img"/>
+          <col className='col_name'/>
           <col/>
           <col/>
           <col/>
-          <col/>
+          <col className='col_view'/>
         </colgroup>
         <thead>
           <tr className='home_header'>
