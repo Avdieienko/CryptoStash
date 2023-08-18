@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Visualiser } from './components/Visualiser';
+import { NotFound } from './components/NotFound';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,12 +13,16 @@ root.render(
     <BrowserRouter>
     <Routes>
       <Route
-        path="/"
+        path="/cryptostash/"
         element={<App/>}
       />
       <Route
-        path="/:symbol"
+        path="/cryptostash/:symbol"
         element={<Visualiser/>}
+      />
+      <Route
+        path="/cryptostash/*"
+        elementh={<NotFound/>}
       />
     </Routes>
     </BrowserRouter>
