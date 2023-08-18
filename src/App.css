@@ -56,6 +56,12 @@ table{
     width:80%;
     border-collapse: collapse;
 }
+.col_img{
+    width:8%
+}
+.col_name{
+    width:20%
+}
 
 .powered_by{
     display: flex;
@@ -107,6 +113,23 @@ footer{
     width: 100%;
 }
 
+
+.error_wrapper{
+    text-align: center;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-100%);
+    width:50%;
+}
+
+.error_wrapper a{
+    padding:1% 2%;
+    background-color: rgb(103, 103, 247);
+    border-radius: 10px;
+    font-size: 2vw;
+}
+
 @media (orientation:portrait) {
     header{
         margin:0 5%;
@@ -126,4 +149,25 @@ footer{
     .my_link{
         font-size: 6vw;
     }
+    table{
+        margin: 0 2%;
+        width:96%
+    }
+    .col_img{
+        width:10%
+    }
+    .col_name{
+        width:20%
+    }
+    .home_header_price, .home_header_name, .home_header_change{
+        font-size: 3vw;
+    }
+    td{
+        padding: 3% 0;
+    }
+    .error_wrapper a{
+        padding:2% 4%;
+        font-size: 6vw;
+    }
+
 }
