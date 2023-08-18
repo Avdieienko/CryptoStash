@@ -36,7 +36,7 @@ export const Info = (props) =>{
                 <p style={{color:priceChange>0?"green":"red"}} className="symbol_price_change">{priceChange>0?<RiArrowUpSFill/>:<RiArrowDownSFill/>}{priceChange} %</p>
             </td>
             <td>
-                <Link className="trade_view_button" to={`/${props.data.symbol}?interval=1d`}>Trading view</Link>
+                <Link className="trade_view_button" to={`/cryptostash/${props.data.symbol}?interval=1d`}>Trading view</Link>
             </td>
         </tr>
     )
