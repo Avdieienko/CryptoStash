@@ -10,6 +10,7 @@ import { GetSymbolData } from "../api";
 import { Loader } from "./Loader";
 import {Footer} from "./Footer"
 import { useOrientation } from "react-use";
+import { NotFound } from "./NotFound";
 
 
 export const Visualiser = () =>{
@@ -18,6 +19,9 @@ export const Visualiser = () =>{
     const interval = searchParams.get("interval")
     const {klineData,symbolData, loading, error} = GetSymbolData(routeParams.symbol,interval)
     const {type} = useOrientation()
+
+
+    if(error) return <NotFound error={error}/>
 
     if(loading) return <Loader/>
 
@@ -70,7 +74,7 @@ export const Visualiser = () =>{
                 <div className="sidebar_data">
                     <div className="sidebar_data_row row1">
                         <p className="sidebar_data_row_category">24h Change: </p>
-                        <p style={{color:color}} className="symbol_price_change">
+                        <p style={{color:color}} className="sidebar_symbol_price_change">
                             {priceChange} $
                         </p>
                     </div>
@@ -108,7 +112,7 @@ export const Visualiser = () =>{
             <div className="right_sidebar">
                 {currencies.map((symbol, id)=>{
                     return(
-                        <Link className="right_sidebar_row" to={`/${symbol.symbol}USDT?interval=${interval}`} key={id}>
+                        <Link className="right_sidebar_row" to={`/cryptostash/${symbol.symbol}USDT?interval=${interval}`} key={id}>
                             <img alt={symbol.symbol} src={symbol.logo} />
                             <p>{symbol.name}</p>
                             <p>{symbol.symbol}</p>
