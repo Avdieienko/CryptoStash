@@ -10,7 +10,7 @@ export const Header =()=>{
 
     return(
         <header>
-            <Link className="header_name" to = "/"><h1>CryptoStash</h1></Link>
+            <Link className="header_name" to = "/cryptostash/"><h1>CryptoStash</h1></Link>
             <a target="_blank" href="https://www.binance.com/en/binance-api" className="powered_by">Powered by <img src={"https://upload.wikimedia.org/wikipedia/commons/1/12/Binance_logo.svg"}/>API</a>
             <SearchBar input={input} setInput={setInput} setResult={setResult}/>
             <SearchResults setInput={setInput} setResult={setResult} results={result}/>
